@@ -1,7 +1,7 @@
 #%%
 import torch
 from torch.utils.data import DataLoader
-from torchdataset import SegmentationDataset
+from mask_unet.torchdataset import SegmentationDataset
 import segmentation_models_pytorch as smp
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
