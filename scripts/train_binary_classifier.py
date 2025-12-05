@@ -55,7 +55,6 @@ model.to(DEVICE)
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 
 num_epochs = 5
-best_val_loss = float('inf')  
 model_save_path = 'models/binary/best_debris_classifier.pth'  
 
 
