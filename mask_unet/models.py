@@ -1,5 +1,6 @@
 import torchvision.models as models
 import torch.nn as nn
+import segmentation_models_pytorch as smp
 
 
 class DebrisClassifier(nn.Module):
@@ -20,3 +21,13 @@ class DebrisClassifier(nn.Module):
         x = self.encoder(x)
         x = self.sigmoid(x)  # Sigmoid to output probability for binary classification
         return x
+    
+
+def get_segmentation_model():
+    return smp.Unet(
+        encoder_name="resnet34",
+        encoder_weights="imagenet",
+        in_channels=1,  # grayscale
+        classes=1,      # was binary
+        activation=None
+    )
