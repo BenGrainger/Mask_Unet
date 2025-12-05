@@ -14,6 +14,7 @@ from torchvision import transforms
 import torch.nn as nn
 from mask_unet.torchdataset import DebrisDataset
 from mask_unet.models import DebrisClassifier
+from mask_unet.training.train_classifier import train_classifier
 
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -33,6 +34,7 @@ debris_dir = '/ceph/zoo/users/debris/data/masks_no_masks/debris'
 no_debris_dir = '/ceph/zoo/users/debris/data/masks_no_masks/nodebris'
 
 transform = get_transforms()
+
 dataset = DebrisDataset(debris_dir, no_debris_dir, transform=transform)
 
 
@@ -53,42 +55,11 @@ model.to(DEVICE)
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 
 num_epochs = 5
-best_val_loss = float('inf')  
 model_save_path = 'models/binary/best_debris_classifier.pth'  
 
-print('training has begun')
 
-for epoch in range(num_epochs):
-    model.train()
-    for images, labels in train_loader:
-        images, labels = images.to(DEVICE), labels.to(DEVICE)
-        optimizer.zero_grad()
-        outputs = model(images)
-        loss = criterion(outputs.squeeze(), labels.float())  
-        loss.backward()
-        optimizer.step()
-
-    model.eval()
-    with torch.no_grad():
-        val_loss = 0
-        correct_preds = 0
-        for images, labels in val_loader:
-            images, labels = images.to(DEVICE), labels.to(DEVICE)
-            outputs = model(images)
-            loss = criterion(outputs.squeeze(), labels.float())
-            val_loss += loss.item()
-            predicted = (outputs.squeeze() > 0.5).long()  # Convert to 0 or 1
-            correct_preds += (predicted == labels).sum().item()
-
-        val_accuracy = correct_preds / len(val_loader.dataset)
-        print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {val_loss/len(val_loader):.4f}, Accuracy: {val_accuracy:.4f}")
-
-        
-        if val_loss < best_val_loss:
-            best_val_loss = val_loss
-            #torch.save(model.state_dict(), model_save_path)  # Save model with best validation loss
-            print(f"Saved model with validation loss: {val_loss/len(val_loader):.4f}")
+train_classifier(model, optimizer, train_loader, val_loader, criterion, DEVICE, num_epochs, model_save_path)
 
 
-#torch.save(model.state_dict(), 'models/binary/final_debris_classifier.pth')
+torch.save(model.state_dict(), 'models/binary/final_debris_classifier.pth')
 
