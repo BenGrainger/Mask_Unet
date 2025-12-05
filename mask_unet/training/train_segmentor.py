@@ -35,7 +35,7 @@ def evaluation(model, val_loader, criterion, DEVICE, epoch, num_epochs):
 def save_checkpoint(model, model_save_path):
     torch.save(model.state_dict(), model_save_path)
 
-def train_segmentator(model, optimizer, train_loader, val_loader, criterion, DEVICE, num_epochs, model_save_path):
+def train_segmentor(model, optimizer, train_loader, val_loader, criterion, DEVICE, num_epochs, model_save_path):
     best_val_loss = float('inf') 
     for epoch in range(num_epochs):
         train_one_epoch(model, train_loader, optimizer, criterion, DEVICE)
