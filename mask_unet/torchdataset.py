@@ -1,12 +1,10 @@
 import os
-import torch
 import numpy as np
-import cv2
 from torch.utils.data import Dataset
 from pathlib import Path
-import cv2
 import glob
 import tifffile as tiff
+from PIL import Image
 
 class SegmentationDataset(Dataset):
     def __init__(self, path_name, transforms=None):
