@@ -21,6 +21,7 @@ Two-stage pipeline for automated debris detection and segmentation in electron m
 
 ## Repository Structure
 
+```text
 📦 Mask_Unet/
  ┣ 📂 mask_unet/
  ┃ ┣ 📄 __init__.py
@@ -44,6 +45,7 @@ Two-stage pipeline for automated debris detection and segmentation in electron m
  ┣ 📂 config/
  ┣ 📂 Legacy/
  ┗ 📄 README.md
+ ```text
 
 
 ## Installaton 
