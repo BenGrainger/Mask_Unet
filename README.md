@@ -21,39 +21,30 @@ Two-stage pipeline for automated debris detection and segmentation in electron m
 
 ## Repository Structure
 
-Mask_Unet/
-  mask_unet/
-    __init__.py
-    torchdataset.py          # DebrisDataset, SegmentationDataset
-    models.py                # DebrisClassifier, get_segmentation_model
-    inference.py             # Core inference helpers (classifier, segmentor, full pipeline)
-    training/
-      __init__.py
-      train_classifier.py          # train_classifier, evaluation for binary classifier
-      train_segmentor.py           # train_segmentator, evaluation for segmentation model
+📦 Mask_Unet/
+ ┣ 📂 mask_unet/
+ ┃ ┣ 📄 __init__.py
+ ┃ ┣ 📄 torchdataset.py
+ ┃ ┣ 📄 models.py
+ ┃ ┣ 📄 inference.py
+ ┃ ┗ 📂 training/
+ ┃    ┣ 📄 __init__.py
+ ┃    ┣ 📄 train_classifier.py
+ ┃    ┗ 📄 train_segmentor.py
+ ┣ 📂 scripts/
+ ┃ ┣ 📄 train_binary_classifier.py
+ ┃ ┣ 📄 train_segmentation.py
+ ┃ ┣ 📄 run_inference_binary_classifier_segmentation.py
+ ┃ ┗ 📄 run_inference_segmentation.py 
+ ┣ 📂 notebooks/
+ ┃ ┣ 📄 evaluate_classifier.ipynb
+ ┃ ┗ 📄 evaluate_segmentation.ipynb
+ ┣ 📂 debris_data/
+ ┣ 📂 models/
+ ┣ 📂 config/
+ ┣ 📂 Legacy/
+ ┗ 📄 README.md
 
-  scripts/
-    train_binary_classifier.py
-    train_segmentation.py
-    run_inference_binary_classifier_segmentation.py        
-    run_inference_segmentation.py  
-
-  notebooks/
-    evaluate_classifier.ipynb
-    evaluate_segmentation.ipynb
-
-  debris_data/               # small demo dataset (not full training data)
-    ...
-
-  models/                    # trained weights (not tracked in git; add your own)
-    binary/
-    segmentation/
-
-  config/                    # (planned) YAML configs for training/inference
-
-  Legacy/                    # old scripts actully used to train and infer models
-
-  README.md
 
 ## Installaton 
 
