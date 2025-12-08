@@ -1,0 +1,23 @@
+name: mask_unet
+channels:
+  - pytorch
+  - nvidia
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1  # works fine on a CUDA 12.4 driver/runtime
+  - pip
+  - pip:
+      - segmentation-models-pytorch
+      - albumentations
+      - opencv-python
+      - pillow
+      - tifffile
+      - torchmetrics
+      - ipykernel
+      - scikit-image
+      - matplotlib

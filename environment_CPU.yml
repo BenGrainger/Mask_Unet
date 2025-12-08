@@ -1,0 +1,27 @@
+name: mask_unet
+channels:
+  - pytorch
+  - defaults
+
+dependencies:
+  - python=3.10
+
+  # CPU-only PyTorch
+  - pytorch
+  - torchvision
+  - torchaudio
+  - cpuonly
+
+  - pip
+
+  - pip:
+      - segmentation-models-pytorch
+      - albumentations
+      - opencv-python
+      - pillow
+      - tifffile
+      - torchmetrics
+      - scikit-image
+      - matplotlib
+      - ipykernel
+
