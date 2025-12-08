@@ -57,14 +57,57 @@ Mask_Unet/
 
 ## Installaton 
 
-torch
-conda install -c conda-forge albumentations opencv
-torchmetrics
-torchvision
-segmentation_models_pytorch
-numpy
-PIL
-tifffile
+🔧 Installation
+
+This project provides two separate conda environments:
+
+GPU environment (HPC) → for training & inference on the cluster
+
+CPU environment (local machine) → for development, debugging, and notebooks
+
+Choose the environment that matches your system.
+
+🚀 1. GPU Installation (HPC — CUDA 12.4)
+
+This environment uses the cluster’s cudatorch/12.4 module for PyTorch + CUDA.
+The conda environment installs supporting libraries only (Albumentations, SM-P, OpenCV, etc.).
+
+Step 1 — Load the CUDA/PyTorch module
+module load cudatorch/12.4
+
+Step 2 — Create the GPU environment
+conda env create -f environment_gpu.yml
+
+Step 3 — Activate
+conda activate mask_unet_gpu
+
+Step 4 — Verify that PyTorch sees the GPU
+python - << 'EOF'
+import torch
+print("Torch:", torch.__version__)
+print("CUDA available:", torch.cuda.is_available())
+print("Device:", torch.cuda.get_device_name(0) if torch.cuda.is_available() else "None")
+EOF
+
+
+You should see a GPU such as NVIDIA A100.
+
+💻 2. CPU Installation (Local Development)
+
+Use this environment if you’re working on your laptop/workstation without CUDA.
+This installation provides a stable CPU-only PyTorch setup.
+
+Step 1 — Create the CPU environment
+conda env create -f environment_cpu.yml
+
+Step 2 — Activate
+conda activate mask_unet_cpu
+
+Step 3 — (Optional) Enable Jupyter kernel
+python -m ipykernel install --user --name mask_unet_cpu --display-name "mask_unet_cpu"
+
+
+You can now run notebooks, debug code, and test inference locally.
 
 ## Data
 
